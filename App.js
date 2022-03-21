@@ -72,8 +72,7 @@ const App = () => {
 
   return (
     <>
-      {/* <View style={styles.container}> */}
-      <View>
+      <View style={styles.container}>
         <TextInput
           placeholder="Email"
           value={email}
