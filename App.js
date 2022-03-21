@@ -61,6 +61,8 @@ const App = () => {
         setIsSignedIn(true);
         const user = credential.user;
         setInfo(`Welcome ${user.email}`);
+        setError('');
+        console.log(user);
       })
       .catch(error => {
         setError(error.message);
@@ -83,7 +85,7 @@ const App = () => {
           secureTextEntry={true}
           onChangeText={text => setPassword(text)}
         />
-        <Button title="Register" onPress={signUpUser()} />
+        <Button title="Register" onPress={signUpUser} />
         <Text style={styles.errorText}>{error}</Text>
         <Text style={styles.infoText}>{info}</Text>
       </View>
