@@ -18,6 +18,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   getAuth,
+  signOut,
 } from 'firebase/auth';
 
 // Your web app's Firebase configuration
@@ -72,6 +73,20 @@ const App = () => {
       });
   };
 
+  const signOutUser = () => {
+    signOut(auth)
+      .then(() => {
+        setIsSignedIn(false);
+        setInfo('You have been signed out');
+        setError('');
+        console.log('User signed out');
+      })
+      .catch(error => {
+        setError(error.message);
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -87,6 +102,7 @@ const App = () => {
           onChangeText={text => setPassword(text)}
         />
         <Button title="Sign In" onPress={signInUser} />
+        <Button title="Sign Out" onPress={signOutUser} />
         <Button title="Register" onPress={signUpUser} />
         <Text style={styles.errorText}>{error}</Text>
         <Text style={styles.infoText}>{info}</Text>
