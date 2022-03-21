@@ -11,15 +11,14 @@ import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 ///// Import the functions you need from the SDKs you need
 import {initializeApp} from 'firebase/app';
-///// TODO: Add SDKs for Firebase products that you want to use
-///// https://firebase.google.com/docs/web/setup#available-libraries
-///import {
-///  firebase,
-///  getAuth,
-///  createUserWithEmailAndPassword,
-///} from '@react-native-firebase/auth';
-import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  getAuth,
+} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 // TODO: Replace with your own config object
@@ -44,10 +43,13 @@ const App = () => {
   const [info, setInfo] = useState('');
 
   const signInUser = () => {
-    auth
-      .signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(credential => {
         setIsSignedIn(true);
+        const user = credential.user;
+        setInfo(`Welcome ${user.email}`);
+        setError('');
+        console.log(user);
       })
       .catch(error => {
         console.log(error);
@@ -84,6 +86,7 @@ const App = () => {
           secureTextEntry={true}
           onChangeText={text => setPassword(text)}
         />
+        <Button title="Sign In" onPress={signInUser} />
         <Button title="Register" onPress={signUpUser} />
         <Text style={styles.errorText}>{error}</Text>
         <Text style={styles.infoText}>{info}</Text>
