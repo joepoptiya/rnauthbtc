@@ -53,6 +53,7 @@ const App = () => {
         console.log(user);
       })
       .catch(error => {
+        setIsSignedIn(false);
         console.log(error);
         setError(error.message);
       });
@@ -68,6 +69,7 @@ const App = () => {
         console.log(user);
       })
       .catch(error => {
+        setIsSignedIn(false);
         setError(error.message);
         console.log(error);
       });
@@ -82,6 +84,7 @@ const App = () => {
         console.log('User signed out');
       })
       .catch(error => {
+        setIsSignedIn(false);
         setError(error.message);
         console.log(error);
       });
@@ -90,20 +93,25 @@ const App = () => {
   return (
     <>
       <View style={styles.container}>
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={text => setEmail(text)}
-        />
-        <TextInput
-          placeholder="Password"
-          value={password}
-          secureTextEntry={true}
-          onChangeText={text => setPassword(text)}
-        />
-        <Button title="Sign In" onPress={signInUser} />
-        <Button title="Sign Out" onPress={signOutUser} />
-        <Button title="Register" onPress={signUpUser} />
+        {!isSignedIn ? (
+          <>
+            <TextInput
+              placeholder="Email"
+              value={email}
+              onChangeText={text => setEmail(text)}
+            />
+            <TextInput
+              placeholder="Password"
+              value={password}
+              secureTextEntry={true}
+              onChangeText={text => setPassword(text)}
+            />
+            <Button title="Sign In" onPress={signInUser} />
+            <Button title="Register" onPress={signUpUser} />
+          </>
+        ) : (
+          <Button title="Sign Out" onPress={signOutUser} />
+        )}
         <Text style={styles.errorText}>{error}</Text>
         <Text style={styles.infoText}>{info}</Text>
       </View>
