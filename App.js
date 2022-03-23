@@ -123,17 +123,34 @@ const App = () => {
       .then(credential => {
         setIsSignedIn(true);
         const user = credential.user;
-        //setInfo(`Welcome ${user.email}`);
-        //setError('');
+        setInfo(`Welcome ${user.email}`);
+        setError('');
         console.log(user);
         setAuthProvider(AuthProviderType.Google);
       })
       .catch(error => {
         setAuthProvider(AuthProviderType.None);
-        //setIsSignedIn(false);
-        //setError(error.message);
+        setIsSignedIn(false);
+        setError(error.message);
         console.log(error);
       });
+  };
+
+  const googleSignOutAsync = async () => {
+    try {
+      const res_ra = await GoogleSignin.revokeAccess();
+      console.log(res_ra);
+      const res_so = await GoogleSignin.signOut();
+      console.log(res_so);
+      setIsSignedIn(false);
+      setInfo('You have been signed out');
+      setError('');
+      setAuthProvider(AuthProviderType.None);
+      console.log('Google User signed out');
+    } catch (error) {
+      setAuthProvider(AuthProviderType.None);
+      console.error(error);
+    }
   };
 
   return (
@@ -161,7 +178,7 @@ const App = () => {
             {authProvider === AuthProviderType.Email ? (
               <Button title="Sign Out" onPress={signOutUser} />
             ) : (
-              <Button title="Google Sign Out" onPress={signOutUser} />
+              <Button title="Google Sign Out" onPress={googleSignOutAsync} />
             )}
           </>
         )}
