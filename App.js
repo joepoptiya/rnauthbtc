@@ -8,6 +8,7 @@
 
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 ///// Import the functions you need from the SDKs you need
 import {initializeApp} from 'firebase/app';
@@ -46,16 +47,36 @@ const App = () => {
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
   const [authProvider, setAuthProvider] = useState('');
+
+  GoogleSignin.configure({
+    webClientId:
+      '1011840353117-nb14k1mv796clus774fsv8lrpqqb7jl2.apps.googleusercontent.com',
+  });
+
   const AuthProviderType = {
     None: 'None',
     Email: 'Email',
     Google: 'Google',
   };
 
-  GoogleSignin.configure({
-    webClientId:
-      '1011840353117-nb14k1mv796clus774fsv8lrpqqb7jl2.apps.googleusercontent.com',
-  });
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@storage_Key', jsonValue);
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@storage_Key');
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      // error reading value
+    }
+  };
 
   const signInUser = () => {
     signInWithEmailAndPassword(emailAuth, email, password)
@@ -64,7 +85,7 @@ const App = () => {
         const user = credential.user;
         setInfo(`Welcome ${user.email}`);
         setError('');
-        console.log(user);
+        console.log(JSON.stringify(credential));
         setAuthProvider(AuthProviderType.Email);
       })
       .catch(error => {
@@ -123,17 +144,38 @@ const App = () => {
       .then(credential => {
         setIsSignedIn(true);
         const user = credential.user;
-        //setInfo(`Welcome ${user.email}`);
-        //setError('');
-        console.log(user);
+        setInfo(`Welcome ${user.email}`);
+        setError('');
+        console.log(JSON.stringify(credential));
+        const cu = GoogleSignin.getTokens().then(tokens => {
+          console.log(tokens);
+        });
+        console.log();
         setAuthProvider(AuthProviderType.Google);
       })
       .catch(error => {
         setAuthProvider(AuthProviderType.None);
-        //setIsSignedIn(false);
-        //setError(error.message);
+        setIsSignedIn(false);
+        setError(error.message);
         console.log(error);
       });
+  };
+
+  const googleSignOutAsync = async () => {
+    try {
+      const res_ra = await GoogleSignin.revokeAccess();
+      console.log(res_ra);
+      const res_so = await GoogleSignin.signOut();
+      console.log(res_so);
+      setIsSignedIn(false);
+      setInfo('You have been signed out');
+      setError('');
+      setAuthProvider(AuthProviderType.None);
+      console.log('Google User signed out');
+    } catch (error) {
+      setAuthProvider(AuthProviderType.None);
+      console.error(error);
+    }
   };
 
   return (
@@ -161,7 +203,7 @@ const App = () => {
             {authProvider === AuthProviderType.Email ? (
               <Button title="Sign Out" onPress={signOutUser} />
             ) : (
-              <Button title="Google Sign Out" onPress={signOutUser} />
+              <Button title="Google Sign Out" onPress={googleSignOutAsync} />
             )}
           </>
         )}
