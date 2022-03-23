@@ -45,6 +45,12 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
+  const [authProvider, setAuthProvider] = useState('');
+  const AuthProviderType = {
+    None: 'None',
+    Email: 'Email',
+    Google: 'Google',
+  };
 
   GoogleSignin.configure({
     webClientId:
@@ -59,8 +65,10 @@ const App = () => {
         setInfo(`Welcome ${user.email}`);
         setError('');
         console.log(user);
+        setAuthProvider(AuthProviderType.Email);
       })
       .catch(error => {
+        setAuthProvider(AuthProviderType.None);
         setIsSignedIn(false);
         console.log(error);
         setError(error.message);
@@ -74,11 +82,13 @@ const App = () => {
         const user = credential.user;
         setInfo(`Welcome ${user.email}`);
         setError('');
+        setAuthProvider(AuthProviderType.Email);
         console.log(user);
       })
       .catch(error => {
         setIsSignedIn(false);
         setError(error.message);
+        setAuthProvider(AuthProviderType.None);
         console.log(error);
       });
   };
@@ -89,11 +99,13 @@ const App = () => {
         setIsSignedIn(false);
         setInfo('You have been signed out');
         setError('');
+        setAuthProvider(AuthProviderType.None);
         console.log('User signed out');
       })
       .catch(error => {
         setIsSignedIn(false);
         setError(error.message);
+        setAuthProvider(AuthProviderType.None);
         console.log(error);
       });
   };
@@ -109,36 +121,25 @@ const App = () => {
     const user_sign_in = auth().signInWithCredential(googleCredential);
     user_sign_in
       .then(credential => {
-        //setIsSignedIn(true);
+        setIsSignedIn(true);
         const user = credential.user;
         //setInfo(`Welcome ${user.email}`);
         //setError('');
         console.log(user);
+        setAuthProvider(AuthProviderType.Google);
       })
       .catch(error => {
+        setAuthProvider(AuthProviderType.None);
         //setIsSignedIn(false);
         //setError(error.message);
         console.log(error);
       });
-    //signInWithPopup(auth, provider)
-    //  .then(credential => {
-    //    setIsSignedIn(true);
-    //    const user = credential.user;
-    //    setInfo(`Welcome ${user.email}`);
-    //    setError('');
-    //    console.log(user);
-    //  })
-    //  .catch(error => {
-    //    setIsSignedIn(false);
-    //    setError(error.message);
-    //    console.log(error);
-    //  });
   };
 
   return (
     <>
       <View style={styles.container}>
-        {!isSignedIn ? (
+        {!isSignedIn || authProvider === AuthProviderType.None ? (
           <>
             <TextInput
               placeholder="Email"
@@ -156,7 +157,13 @@ const App = () => {
             <Button title="Sign In with Google" onPress={googleSignInAsync} />
           </>
         ) : (
-          <Button title="Sign Out" onPress={signOutUser} />
+          <>
+            {authProvider === AuthProviderType.Email ? (
+              <Button title="Sign Out" onPress={signOutUser} />
+            ) : (
+              <Button title="Google Sign Out" onPress={signOutUser} />
+            )}
+          </>
         )}
         <Text style={styles.errorText}>{error}</Text>
         <Text style={styles.infoText}>{info}</Text>
