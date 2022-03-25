@@ -50,7 +50,10 @@ const App = () => {
 
   GoogleSignin.configure({
     webClientId:
-      '1011840353117-nb14k1mv796clus774fsv8lrpqqb7jl2.apps.googleusercontent.com',
+      // Android
+      //'1011840353117-nb14k1mv796clus774fsv8lrpqqb7jl2.apps.googleusercontent.com',
+      // ios
+      '1011840353117-d4esqe9f2t1qgcn88uaeb2q14mr4trb9.apps.googleusercontent.com',
   });
 
   const AuthProviderType = {
@@ -178,6 +181,31 @@ const App = () => {
     }
   };
 
+  const googleIosSignInAsync = async () => {
+    try {
+      // Get the users ID token
+      const {idToken} = await GoogleSignin.signIn();
+
+      // Create a Google credential with the token
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+      // Sign-in the user with the credential
+      const user_sign_in = auth().signInWithCredential(googleCredential);
+      user_sign_in.then(credential => {
+        console.log(JSON.stringify(credential));
+        //setIsSignedIn(true);
+        //const user = credential.user;
+        //setInfo(`Welcome ${user.email}`);
+        //setError('');
+        //console.log(JSON.stringify(credential));
+        //setAuthProvider(AuthProviderType.Google);
+      });
+    } catch (error) {
+      setAuthProvider(AuthProviderType.None);
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -194,9 +222,13 @@ const App = () => {
               secureTextEntry={true}
               onChangeText={text => setPassword(text)}
             />
+            <Text>Email Auth</Text>
             <Button title="Sign In" onPress={signInUser} />
             <Button title="Register" onPress={signUpUser} />
+            <Text>Android Google Auth</Text>
             <Button title="Sign In with Google" onPress={googleSignInAsync} />
+            <Text>Ios Google Auth</Text>
+            <Button title="Ios Google Sign-In" onPress={googleIosSignInAsync} />
           </>
         ) : (
           <>

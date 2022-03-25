@@ -14,6 +14,7 @@
 		60A0B9D4E24D47CD0803F308 /* libPods-rnauthbtc-rnauthbtcTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C732FEDC8A6246A4C54BA7D7 /* libPods-rnauthbtc-rnauthbtcTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		CE118627338518220739CA09 /* libPods-rnauthbtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDC1F79633FBB2072F8E9CBA /* libPods-rnauthbtc.a */; };
+		EBA95D7227EDBEA500719870 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBA95D7127EDBEA500719870 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = rnauthbtc/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		840E5162F403B42CB0105EBA /* Pods-rnauthbtc-rnauthbtcTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnauthbtc-rnauthbtcTests.debug.xcconfig"; path = "Target Support Files/Pods-rnauthbtc-rnauthbtcTests/Pods-rnauthbtc-rnauthbtcTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C732FEDC8A6246A4C54BA7D7 /* libPods-rnauthbtc-rnauthbtcTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnauthbtc-rnauthbtcTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBA95D7127EDBEA500719870 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EDC1F79633FBB2072F8E9CBA /* libPods-rnauthbtc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnauthbtc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* rnauthbtc */ = {
 			isa = PBXGroup;
 			children = (
+				EBA95D7127EDBEA500719870 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -145,7 +148,6 @@
 				840E5162F403B42CB0105EBA /* Pods-rnauthbtc-rnauthbtcTests.debug.xcconfig */,
 				4FC765D8EE437CFA7E98962E /* Pods-rnauthbtc-rnauthbtcTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -246,6 +248,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				EBA95D7227EDBEA500719870 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +449,7 @@
 			baseConfigurationReference = 840E5162F403B42CB0105EBA /* Pods-rnauthbtc-rnauthbtcTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 9L2853NNRL;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -474,6 +478,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9L2853NNRL;
 				INFOPLIST_FILE = rnauthbtcTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -499,6 +504,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9L2853NNRL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = rnauthbtc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -510,7 +516,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rnauthbtc.jp.app;
 				PRODUCT_NAME = rnauthbtc;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -525,6 +531,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9L2853NNRL;
 				INFOPLIST_FILE = rnauthbtc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -535,7 +542,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rnauthbtc.jp.app;
 				PRODUCT_NAME = rnauthbtc;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
