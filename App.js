@@ -28,12 +28,12 @@ import auth from '@react-native-firebase/auth';
 // Your web app's Firebase configuration
 // TODO: Replace with your own config object
 const firebaseConfig = {
-  apiKey: 'AIzaSyCZGwg7hPGEBoSQO3TGNWCmZrjkwv8-6uU',
-  authDomain: 'rn--auth-c0b58.firebaseapp.com',
-  projectId: 'rn--auth-c0b58',
-  storageBucket: 'rn--auth-c0b58.appspot.com',
-  messagingSenderId: '1011840353117',
-  appId: '1:1011840353117:web:4617f3847bb2b1d024deb4',
+  apiKey: 
+  authDomain: 
+  projectId: 
+  storageBucket: 
+  messagingSenderId: 
+  appId: 
 };
 
 // Initialize Firebase
